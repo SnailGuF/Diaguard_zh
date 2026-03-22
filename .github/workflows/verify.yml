@@ -61,7 +61,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: apk-debug
-        path: app/build/outputs/apk/debug/*.apk
+        path: app/build/outputs/apk/store/release/*.apk
       if: always()   # 即使测试失败也上传，便于调试
 
     - name: Run unit tests
