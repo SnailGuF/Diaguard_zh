@@ -54,14 +54,17 @@ jobs:
           ${{ runner.os }}-gradle-
 
     - name: Build
-      run: ./gradlew build --no-daemon
+      run: ./gradlew assembleDebug --no-daemon
 
+    - name: List APK files (debug)
+      run: find . -name "*.apk" -type f
+      
     # 新增：上传 debug APK（由 build 任务生成）
     - name: Upload debug APK
       uses: actions/upload-artifact@v4
       with:
         name: apk-debug
-        path: app/build/outputs/apk/debug/*.apk
+        path: app/build/outputs/apk/store/debug/*.apk
       if: always()   # 即使测试失败也上传，便于调试
 
     - name: Run unit tests
