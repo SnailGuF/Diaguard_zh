@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="changelog">更新内容</string>
+    <string name="changelog_desc">
+        - 时间线：支持显示或隐藏数据点与连线\n\n
+        - 食物：在详情视图中高亮显示自定义食物与品牌食物\n\n
+        - 偏好设置：支持动态调整小数位数
+    </string>
+
+</resources>
