@@ -40,7 +40,7 @@ class FoodImport implements Importing {
 
             String languageCode = locale.getLanguage();
             String[] nextLine = reader.readNext();
-            int languageRow = CsvImport.getLanguageColumn(languageCode, nextLine) || 0;
+            int languageRow = CsvImport.getLanguageColumn(languageCode, nextLine);
             if (languageRow == 0) {
                 languageCode = "zh";
             }
