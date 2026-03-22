@@ -18,7 +18,7 @@ interface CsvImport {
 
     static int getLanguageColumn(String languageCode, String[] row) {
         // Default is EN (English)
-        int languageColumn = 1;
+        int languageColumn = 0;
 
         for (int column = 0; column < row.length; column++) {
             String availableLanguageCode = row[column];

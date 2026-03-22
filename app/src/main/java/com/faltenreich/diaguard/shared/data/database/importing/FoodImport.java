@@ -40,12 +40,15 @@ class FoodImport implements Importing {
 
             String languageCode = locale.getLanguage();
             String[] nextLine = reader.readNext();
-            int languageRow = CsvImport.getLanguageColumn(languageCode, nextLine);
+            int languageRow = CsvImport.getLanguageColumn(languageCode, nextLine) || 0;
+            if (languageRow == 0) {
+                languageCode = 'zh'
+            }
 
             List<Food> foodList = new ArrayList<>();
             while ((nextLine = reader.readNext()) != null) {
 
-                if (nextLine.length >= 13) {
+                if (nextLine.length >= 5) {
                     Food food = new Food();
 
                     food.setName(nextLine[languageRow]);
@@ -53,18 +56,19 @@ class FoodImport implements Importing {
                     food.setLabels(context.getString(R.string.food_common));
                     food.setLanguageCode(languageCode);
 
+                    int index = 2;
                     // Main nutrients are given in grams, so we take them as they are
-                    food.setCarbohydrates(FloatUtils.parseNullableNumber(nextLine[4]));
-                    food.setEnergy(FloatUtils.parseNullableNumber(nextLine[5]));
-                    food.setFat(FloatUtils.parseNullableNumber(nextLine[6]));
-                    food.setFatSaturated(FloatUtils.parseNullableNumber(nextLine[7]));
-                    food.setFiber(FloatUtils.parseNullableNumber(nextLine[8]));
-                    food.setProteins(FloatUtils.parseNullableNumber(nextLine[9]));
-                    food.setSalt(FloatUtils.parseNullableNumber(nextLine[10]));
-                    food.setSugar(FloatUtils.parseNullableNumber(nextLine[12]));
+                    food.setCarbohydrates(FloatUtils.parseNullableNumber(nextLine[index]));
+                    food.setEnergy(FloatUtils.parseNullableNumber(nextLine[index+1]));
+                    food.setFat(FloatUtils.parseNullableNumber(nextLine[index+2]));
+                    food.setFatSaturated(FloatUtils.parseNullableNumber(nextLine[index+3]));
+                    food.setFiber(FloatUtils.parseNullableNumber(nextLine[index+4]));
+                    food.setProteins(FloatUtils.parseNullableNumber(nextLine[index+5]));
+                    food.setSalt(FloatUtils.parseNullableNumber(nextLine[index+6]));
+                    food.setSugar(FloatUtils.parseNullableNumber(nextLine[index+7]));
 
                     // Mineral nutrients are given in milligrams, so we divide them by 1.000
-                    Float sodium = FloatUtils.parseNullableNumber(nextLine[11]);
+                    Float sodium = FloatUtils.parseNullableNumber(nextLine[index+8]);
                     sodium = sodium != null ? sodium / 1000 : null;
                     food.setSodium(sodium);
 
